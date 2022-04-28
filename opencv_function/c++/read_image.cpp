@@ -2,6 +2,7 @@
 #include<opencv2/highgui.hpp>
 #include<opencv2/imgproc.hpp>
 #include<opencv2/core/utils/filesystem.hpp>
+#include<fstream>
 /**
  * @brief read image. can check path's correctness and printf message.
  * 
@@ -25,4 +26,16 @@ cv::Mat read_image(std::string path,cv::ImreadModes mode) {
 	}
 	printf("do not exist the path,check the input image path\n");
 	exit(0);
+}
+
+
+cv::Mat readRaw16bit1920_1080(const cv::String& path) {
+    std::ifstream file(path,std::ios::binary);
+    if (!file.is_open()) {
+        return cv::Mat();
+    }
+    cv::Mat src = cv::Mat::ones(1080, 1920, CV_16UC1);
+    file.read((char*)src.data,1920*1080*2);
+    file.close();
+    return src;
 }
