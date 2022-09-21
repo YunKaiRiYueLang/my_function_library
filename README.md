@@ -1,5 +1,5 @@
 # my_function_library
-常用函数的封装
+常用函数的封装.简介
 
 1. libyuv库：海思arm-himix200-linux
 2. opencv函数：splitRaw图像、用cv2读取中文路径的图片函数
