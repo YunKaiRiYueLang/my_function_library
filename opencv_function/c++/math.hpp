@@ -1,4 +1,5 @@
 #include<opencv.hpp>
+//use general equation of a straight line
 inline float getDistanceP2L1(cv::Point pointP, cv::Point pointA, cv::Point pointB)
 {
     //求直线方程
