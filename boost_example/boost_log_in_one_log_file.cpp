@@ -70,6 +70,39 @@ int main4() {
 
 	return 0;
 }
+int main5_thread1() {
+	int i = 0;
+	while (i < 100) {
+		BOOST_LOG_TRIVIAL(error) << "main5_thread1  An error severity message";
+		i++;
+	}
+	return 0;
+}
+int main5_thread2() {
+	int i = 0;
+	while (i < 100) {
+		BOOST_LOG_TRIVIAL(error) << "main5_thread2  An error severity message";
+		i++;
+	}
+	return 0;
+}
+int main5() {
+	//再不同线程中记录日志
+	boost::log::add_file_log("sample.log");
+	// 设置全局过滤器，仅允许warning及以上级别的日志
+	boost::log::core::get()->set_filter
+	(
+		boost::log::trivial::severity >= boost::log::trivial::warning
+	);
+	std::thread t1(main5_thread1);
+	std::thread t2(main5_thread2);
+	t1.join();
+	t2.join();
+	return 0;
+}
+
+
+
 
 int main() {
 
@@ -77,9 +110,9 @@ int main() {
 	//main1();//直接使用，在控制台打印日志。
 	//main2();//日志存入文件中。
 	//main3();//存入指定登记的日志
-	main4();//在不同函数中向同一个文件记入日志。
+	 //main4();//在不同函数中向同一个文件记入日志。
+	main5();//在不同线程中向同一个文件记入日志。
 }
-
 
 
 
